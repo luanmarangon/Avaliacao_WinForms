@@ -5,12 +5,11 @@ namespace Avaliacao_WinForms
         public Form1()
         {
             InitializeComponent();
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
+            this.MaximizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
 
         }
+
 
 
         private void calculadoraRateioToolStripMenuItem_Click(object sender, EventArgs e)

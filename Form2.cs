@@ -16,6 +16,8 @@ namespace Avaliacao_WinForms
         public Form2()
         {
             InitializeComponent();
+            this.MaximizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
        private void button1_Click(object sender, EventArgs e)

@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using String = System.String;
 
 namespace Avaliacao_WinForms
 {
@@ -24,7 +26,12 @@ namespace Avaliacao_WinForms
         public Form3()
         {
             InitializeComponent();
-            connectionString = $"Server={server};Database={dataBase};user={user};Password={passwd};TrustServerCertificate=True";
+            
+            this.MaximizeBox = false;
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+
+            connectionString = $"Server={server};Database={dataBase};user={user};Password={passwd};TrustServerCertificate=True";    
+            
         }
 
         public void insertPessoa(string nome, string cpf)
