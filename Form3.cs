@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace Avaliacao_WinForms
 {
     public partial class Form3 : Form
     {
-        string server = "localhost";
+        string server = "192.168.0.70";
         string dataBase = "VARTECHS_SUPER";
         string user = "evandro";
         string passwd = "mudama23";
@@ -166,25 +167,33 @@ namespace Avaliacao_WinForms
 
                     using (SqlTransaction transactions = connection.BeginTransaction())
                     {
-                        try
+                        DialogResult result = MessageBox.Show("Tem certeza que deseja excluir este registro?", "Confirmação", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (result == DialogResult.Yes)
                         {
-                            SqlCommand command = connection.CreateCommand();
-                            command.Transaction = transactions;
-                            command.CommandText = "DELETE FROM luan WHERE id = @idPessoa";
+                            try
+                            {
+                                SqlCommand command = connection.CreateCommand();
+                                command.Transaction = transactions;
+                                command.CommandText = "DELETE FROM luan WHERE id = @idPessoa";
 
-                            command.Parameters.AddWithValue("@idPessoa", idPessoa);
+                                command.Parameters.AddWithValue("@idPessoa", idPessoa);
 
-                            command.ExecuteNonQuery();
+                                command.ExecuteNonQuery();
 
-                            transactions.Commit();
-                            MessageBox.Show("Transação Concluída com Sucesso. Cadastro da Pessoa Excluída");
-                            listarPessoa(null);
+                                transactions.Commit();
+                                MessageBox.Show("Transação Concluída com Sucesso. Cadastro da Pessoa Excluída");
+                                listarPessoa(null);
+                                return;
+                            }
+                            catch (Exception ex)
+                            {
+                                transactions.Rollback();
+                                MessageBox.Show($"Transação Revertida devido erro! {ex.Message}");
+                                return;
+                            }
                         }
-                        catch (Exception ex)
-                        {
-                            transactions.Rollback();
-                            MessageBox.Show($"Transação Revertida devido erro! {ex.Message}");
-                        }
+                        MessageBox.Show("Exclusão cancelada pelo Usuário!");
+                        return;
                     }
                 }
             }
@@ -269,7 +278,25 @@ namespace Avaliacao_WinForms
                 tbId.Text = null;
                 return;
             }
-            MessageBox.Show("Não ");
+            MessageBox.Show("Nenhum Cadastro Selecionado!");
         }
+
+        private void tbCPF_TextChanged(object sender, EventArgs e)
+        {
+            if (tbCPF.Text.Length == 11)
+            {
+                cpfCheck.Text = "OK";
+               
+            }
+            else
+            {
+                cpfCheck.Text = ""; 
+            }
+
+
+
+
+        }
+
     }
 }

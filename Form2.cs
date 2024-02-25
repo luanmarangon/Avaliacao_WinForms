@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,8 +34,18 @@ namespace Avaliacao_WinForms
                 return;
             }
 
-            int consumido = int.Parse(tbConsumido.Text);
-            double porcentagem = float.Parse(tbPorcentagem.Text);
+            if (tbConsumido.Text.Contains(','))
+            {
+                tbConsumido.Text = tbConsumido.Text.Replace(',', '.');
+            }
+
+            if (tbPorcentagem.Text.Contains(','))
+            {
+                tbPorcentagem.Text = tbPorcentagem.Text.Replace(',', '.');
+            }
+
+            double consumido = double.Parse(tbConsumido.Text.Replace(',', '.'), CultureInfo.InvariantCulture);
+            double porcentagem= double.Parse(tbPorcentagem.Text.Replace(',', '.'), CultureInfo.InvariantCulture);
             int qtdPessoas = int.Parse(tbPessoa.Text);
 
            

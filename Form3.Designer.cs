@@ -44,6 +44,7 @@
             Column2 = new DataGridViewTextBoxColumn();
             Column3 = new DataGridViewTextBoxColumn();
             tbId = new Label();
+            cpfCheck = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridPessoas).BeginInit();
             SuspendLayout();
             // 
@@ -62,6 +63,7 @@
             tbCPF.Name = "tbCPF";
             tbCPF.Size = new Size(393, 27);
             tbCPF.TabIndex = 1;
+            tbCPF.TextChanged += tbCPF_TextChanged;
             // 
             // label2
             // 
@@ -176,11 +178,21 @@
             tbId.TabIndex = 12;
             tbId.Visible = false;
             // 
+            // cpfCheck
+            // 
+            cpfCheck.AutoSize = true;
+            cpfCheck.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            cpfCheck.Location = new Point(421, 43);
+            cpfCheck.Name = "cpfCheck";
+            cpfCheck.Size = new Size(0, 28);
+            cpfCheck.TabIndex = 13;
+            // 
             // Form3
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(675, 534);
+            Controls.Add(cpfCheck);
             Controls.Add(tbId);
             Controls.Add(dataGridPessoas);
             Controls.Add(btnPesquisar);
@@ -219,5 +231,6 @@
         private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
+        private Label cpfCheck;
     }
 }
